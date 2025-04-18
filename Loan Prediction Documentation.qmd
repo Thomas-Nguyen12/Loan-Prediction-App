@@ -1,0 +1,119 @@
+---
+title: "Loan Prediction Research"
+format: pdf
+author: 'Thomas Nguyen'
+toc: True
+theme: United
+Abstract: "hello, my name is thomas" 
+---
+{{< pagebreak >}}
+
+```{python setup, include=false} 
+#| include: true
+
+import shap 
+import pandas as pd 
+
+import scipy.stats as stats 
+import joblib
+
+# setting the working directory 
+import os 
+os.chdir("/Users/thomasnguyen/loan_dataset/")
+
+## Importing the variables and models 
+
+xgboost_model = joblib.load("model/optimised_xgboost_model.pkl")
+random_forest_model = joblib.load("model/optimised_random_forest_model.pkl")
+logistic_regression_model = joblib.load("model/optimised_logistic_model.pkl")
+df2 = pd.read_csv("data/cleaned_loan_dataset.csv")
+df = pd.read_csv("data/loan_dataset.csv") 
+shap_values = joblib.load("data/random_forest_shap_values.pkl")
+X_test = joblib.load("data/X_test.pkl")
+```
+
+
+# Abstract 
+
+Bank Loans are 
+
+In this analysis, I used Python, Pandas, Scikit-learn and SHAP to investigate a loan dataset to uncover the most important variables when rejecting or approving a loan. 
+
+# Methods
+
+## Software
+
+In this analysis, I used Python (v3.11.3) alongside the following packages: 
+
+- category_encoders==2.6.4
+- joblib==1.4.2
+- matplotlib==3.9.2
+- numpy==2.1.3
+- pandas==2.2.3
+- plotly==5.23.0
+- scikit_learn==1.5.2
+- scipy==1.14.1
+- seaborn==0.13.2
+- shap==0.45.1
+- streamlit==1.37.0
+- streamlit_shap==1.0.2
+
+## Data Availability
+
+The data I used is available at: https://www.kaggle.com/datasets/sonalisingh1411/loan-approval-prediction?select=Training+Dataset.csv
+
+
+## Data Importing 
+
+Using pandas (v2.2.3), I imported the training and testing dataset and then concatenated them vertically. This would help randomise the subsets of dataset chosen when splitting into training and testing datasets.
+
+## Processing 
+
+
+Semi-urban was encoded the highest, Rural is the lowest, urban is the middle 
+
+Married: 1 = Yes, 0 = No
+
+
+## Analysis 
+
+
+# Results
+
+
+
+
+```{python, echo=false}
+#| echo: true
+
+shap.plots.beeswarm(shap_values[:, :, 0]) 
+```
+
+
+# Discussion
+
+
+# Conclusion
+
+
+
+
+1. All models agreed with each other 
+2. Loan amount, applicant income, co-applicant income, loan term inversely correlated with acceptance liklihood
+3. males are slightly more likely to be accepted than females
+4. Graduates are more likely to be accepted for a loan (education is important!)
+5. dependents, gender, self-employed status and applicant income are the lowest predictors of loan status
+6. Urban areas are the most likely to be accepted for a loan, followed by semi-urban and then rural properties
+7. Married people are more likely to be granted a loan
+
+## Concordant papers
+
+
+
+## Limitations
+1. Low sample size (many samples deleted)
+2. Data was found on kaggle with no DOI citation 
+
+
+
+
